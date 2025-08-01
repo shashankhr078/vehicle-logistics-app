@@ -10,6 +10,8 @@ app.use(cors());
 app.use(express.json());
 
 app.use('/api/auth', require('./routes/auth'));
+app.use('/api/vehicles', require('./routes/vehicle'));
+
 
 app.get('/', (req, res) => res.send('Server running'));
 app.listen(5000, () => console.log("Server started on port 5000"));
