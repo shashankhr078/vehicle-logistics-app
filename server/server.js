@@ -11,6 +11,7 @@ app.use(express.json());
 
 app.use('/api/auth', require('./routes/auth'));
 app.use('/api/vehicles', require('./routes/vehicle'));
+app.use('/api/bookings', require('./routes/booking'));
 
 
 app.get('/', (req, res) => res.send('Server running'));
