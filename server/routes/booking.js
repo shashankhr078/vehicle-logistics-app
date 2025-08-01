@@ -7,17 +7,19 @@ const {
   updateBookingStatus
 } = require('../controllers/bookingController');
 
-// Book vehicle
-router.post('/', createBooking);
+// 🔐 Import the auth middleware
+const { verifyToken, isAdmin } = require('../middleware/authMiddleware');
 
-// Admin: get all bookings
-router.get('/', getAllBookings);
+// Book vehicle (protected - logged-in users only)
+router.post('/', verifyToken, createBooking);
 
-// User: get my bookings
-router.get('/user/:userId', getUserBookings);
+// Admin: get all bookings (protected - admin only)
+router.get('/', verifyToken, isAdmin, getAllBookings);
 
-// Admin: update booking status
-router.put('/:id/status', updateBookingStatus);
+// User: get my bookings (protected - logged-in users only)
+router.get('/user/:userId', verifyToken, getUserBookings);
+
+// Admin: update booking status (protected - admin only)
+router.put('/:id/status', verifyToken, isAdmin, updateBookingStatus);
 
 module.exports = router;
-
