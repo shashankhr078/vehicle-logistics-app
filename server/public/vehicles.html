@@ -1,0 +1,40 @@
+<!-- public/vehicles.html -->
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <title>Browse Vehicles</title>
+  <link rel="stylesheet" href="styles.css" />
+</head>
+<body>
+  <h1>Available Vehicles</h1>
+  <div id="vehicle-list"></div>
+
+  <script>
+    const vehicleList = document.getElementById('vehicle-list');
+
+    fetch('/api/vehicles')
+      .then(res => res.json())
+      .then(data => {
+        data.forEach(vehicle => {
+          const card = document.createElement('div');
+          card.innerHTML = `
+            <h3>${vehicle.name}</h3>
+            <p>Type: ${vehicle.type}</p>
+            <p>Brand: ${vehicle.brand}</p>
+            <p>Price: ₹${vehicle.price}</p>
+            <p>Status: ${vehicle.available ? "Available" : "Unavailable"}</p>
+            ${vehicle.available ? `<a href="book.html?id=${vehicle._id}">Book Now</a>` : ""}
+            <hr/>
+          `;
+          vehicleList.appendChild(card);
+        });
+      })
+      .catch(err => {
+        vehicleList.innerHTML = "Failed to load vehicles.";
+        console.error(err);
+      });
+  </script>
+</body>
+</html>
+
