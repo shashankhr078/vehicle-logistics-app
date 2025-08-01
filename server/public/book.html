@@ -1,0 +1,68 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <title>Book Vehicle</title>
+  <link rel="stylesheet" href="styles.css">
+</head>
+<body>
+  <h1>Book Vehicle</h1>
+  <div id="vehicle-details"></div>
+  <form id="booking-form">
+    <input type="text" id="pickupLocation" placeholder="Pickup Location" required />
+    <input type="datetime-local" id="pickupTime" required />
+    <button type="submit">Confirm Booking</button>
+  </form>
+
+  <p id="status"></p>
+
+  <script>
+    const vehicleId = new URLSearchParams(window.location.search).get('id');
+    const vehicleDetails = document.getElementById('vehicle-details');
+    const statusMsg = document.getElementById('status');
+
+    fetch(`/api/vehicles/${vehicleId}`)
+      .then(res => res.json())
+      .then(vehicle => {
+        vehicleDetails.innerHTML = `
+          <h3>${vehicle.name}</h3>
+          <p>Brand: ${vehicle.brand}</p>
+          <p>Price: ₹${vehicle.price}</p>
+        `;
+      });
+
+    document.getElementById('booking-form').addEventListener('submit', async (e) => {
+      e.preventDefault();
+      const token = localStorage.getItem("token");
+      if (!token) {
+        alert("Please login first.");
+        window.location.href = "login.html";
+        return;
+      }
+
+      const bookingData = {
+        vehicleId,
+        pickupLocation: document.getElementById('pickupLocation').value,
+        pickupTime: document.getElementById('pickupTime').value
+      };
+
+      const res = await fetch('/api/bookings', {
+        method: 'POST',
+        headers: {
+          'Content-Type': 'application/json',
+          'Authorization': `Bearer ${token}`
+        },
+        body: JSON.stringify(bookingData)
+      });
+
+      if (res.ok) {
+        statusMsg.textContent = "Booking successful! Redirecting...";
+        setTimeout(() => window.location.href = "bookings.html", 2000);
+      } else {
+        statusMsg.textContent = "Booking failed.";
+      }
+    });
+  </script>
+</body>
+</html>
+
