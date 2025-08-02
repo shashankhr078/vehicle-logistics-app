@@ -1,4 +1,4 @@
-<!DOCTYPE html>
+<!--DOCTYPE html
 <html lang="en">
 <head>
   <meta charset="UTF-8">
@@ -63,6 +63,34 @@
       }
     });
   </script>
+</body>
+</html>
+-->
+<!DOCTYPE html>
+<html>
+<head>
+  <title>Book Vehicle</title>
+  <link rel="stylesheet" href="css/style.css">
+</head>
+<body>
+  <h2>Book Your Vehicle</h2>
+
+  <form id="bookingForm">
+    <label>Pickup Location:</label><br>
+    <input type="text" name="pickupLocation" required><br><br>
+
+    <label>Pickup Date:</label><br>
+    <input type="date" name="pickupDate" required><br><br>
+
+    <label>Pickup Time:</label><br>
+    <input type="time" name="pickupTime" required><br><br>
+
+    <button type="submit">Confirm Booking</button>
+  </form>
+
+  <div id="bookingStatus"></div>
+
+  <script src="js/booking.js"></script>
 </body>
 </html>
 
