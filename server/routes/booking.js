@@ -22,4 +22,6 @@ router.get('/user/:userId', verifyToken, getUserBookings);
 // Admin: update booking status (protected - admin only)
 router.put('/:id/status', verifyToken, isAdmin, updateBookingStatus);
 
+router.get('/user/:userId', bookingController.getBookingsByUser);
+
 module.exports = router;

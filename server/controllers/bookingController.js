@@ -50,4 +50,12 @@ exports.updateBookingStatus = async (req, res) => {
     res.status(500).json({ msg: 'Error updating booking status', err });
   }
 };
+exports.getBookingsByUser = async (req, res) => {
+  try {
+    const bookings = await Booking.find({ user: req.params.userId }).populate('vehicle');
+    res.json(bookings);
+  } catch (err) {
+    res.status(500).json({ message: 'Error fetching user bookings' });
+  }
+};
 
