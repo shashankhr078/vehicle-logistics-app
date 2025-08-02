@@ -50,6 +50,16 @@ public/vehicles.html
   <div id="vehicle-list"></div>
 
   <script src="js/vehicle.js"></script>
+  <button onclick="logout()">Logout</button>
+
+<script>
+function logout() {
+  localStorage.removeItem('token');
+  localStorage.removeItem('isAdmin');
+  window.location.href = 'login.html';
+}
+</script>
+
 </body>
 </html>
 

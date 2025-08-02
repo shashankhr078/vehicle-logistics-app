@@ -25,3 +25,13 @@ router.get('/:id', async (req, res) => {
     res.status(500).send("Server error");
   }
 });
+const { verifyToken, requireAdmin } = require('../utils/jwt');
+
+// Protect all endpoints
+router.use(verifyToken);
+
+// Admin-only routes
+router.delete('/:id', requireAdmin, async (req, res) => {
+  // delete logic
+});
+

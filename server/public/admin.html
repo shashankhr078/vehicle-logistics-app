@@ -20,6 +20,16 @@
   </section>
 
   <script src="js/admin.js"></script>
+  <button onclick="logout()">Logout</button>
+
+<script>
+function logout() {
+  localStorage.removeItem('token');
+  localStorage.removeItem('isAdmin');
+  window.location.href = 'login.html';
+}
+</script>
+
 </body>
 </html>
 

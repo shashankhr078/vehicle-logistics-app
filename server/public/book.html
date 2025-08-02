@@ -89,6 +89,15 @@
   </form>
 
   <div id="bookingStatus"></div>
+  <button onclick="logout()">Logout</button>
+
+<script>
+function logout() {
+  localStorage.removeItem('token');
+  localStorage.removeItem('isAdmin');
+  window.location.href = 'login.html';
+}
+</script>
 
   <script src="js/booking.js"></script>
 </body>

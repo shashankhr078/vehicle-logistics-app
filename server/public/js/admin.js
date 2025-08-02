@@ -62,3 +62,8 @@ async function deleteBooking(id) {
   loadBookings();
 }
 
+const token = localStorage.getItem('token');
+const res = await fetch('/api/vehicles', {
+  headers: { Authorization: token }
+});
+
